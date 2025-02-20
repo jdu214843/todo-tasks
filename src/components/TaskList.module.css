@@ -1,0 +1,102 @@
+/* src/components/TaskList.module.css */
+.container {
+  padding: 1rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.taskTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.taskTable th,
+.taskTable td {
+  border: 1px solid #ddd;
+  padding: 0.75rem;
+  text-align: center;
+}
+
+.taskTable th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.tableRow:nth-child(even) {
+  background-color: #fbfbfb;
+}
+
+.taskName {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.taskDates {
+  font-style: italic;
+  color: #555;
+}
+
+.taskDescription {
+  max-width: 200px;
+  word-wrap: break-word;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.button {
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+.editButton {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.editButton:hover {
+  background-color: #218838;
+}
+
+.toggleButton {
+  background-color: #17a2b8;
+  color: #fff;
+}
+
+.toggleButton:hover {
+  background-color: #138496;
+}
+
+.deleteButton {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.deleteButton:hover {
+  background-color: #c82333;
+}
+.taskStatus.new {
+  color: red;
+}
+
+.taskStatus.proceed {
+  color: blue;
+}
+
+.taskStatus.completed {
+  color: green;
+}

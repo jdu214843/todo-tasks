@@ -1,26 +1,47 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// src/App.tsx
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  NavLink,
+} from "react-router-dom";
+import TaskList from "./components/TaskList";
+import CreateTaskPage from "./components/CreateTaskPage";
+import "./App.css";
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <nav className="navbar">
+          <NavLink
+            to="/create"
+            className={({ isActive }) =>
+              isActive ? "navlink active" : "navlink"
+            }
+          >
+            Create Task
+          </NavLink>
+          <NavLink
+            to="/tasks"
+            className={({ isActive }) =>
+              isActive ? "navlink active" : "navlink"
+            }
+          >
+            Vazifalar
+          </NavLink>
+        </nav>
+
+        <Routes>
+          <Route path="/create" element={<CreateTaskPage />} />
+          <Route path="/tasks" element={<TaskList />} />
+          {/* Standart holatda yo'naltirish */}
+          <Route path="*" element={<CreateTaskPage />} />
+        </Routes>
+      </div>
+    </Router>
   );
-}
+};
 
 export default App;
