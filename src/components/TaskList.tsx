@@ -1,4 +1,3 @@
-// src/components/TaskList.tsx
 import React, { useEffect, useState } from "react";
 import { getTasks, updateTask, deleteTask } from "../api/tasks";
 import EditTaskForm from "./EditTaskForm";
@@ -40,21 +39,6 @@ const TaskList: React.FC = () => {
     }
   };
 
-  // const handleToggleStatus = async (id: number) => {
-  //   const task = tasks.find((t) => t.id === id);
-  //   if (!task) return;
-  //   const updatedTask = {
-  //     ...task,
-  //     status: task.status === "incomplete" ? "completed" : "incomplete",
-  //   };
-  //   try {
-  //     await updateTask(id, updatedTask);
-  //     fetchTasks();
-  //   } catch (error) {
-  //     console.error("Status yangilashda xato:", error);
-  //   }
-  // };
-
   const handleDelete = async (id: number) => {
     try {
       await deleteTask(id);
@@ -64,80 +48,53 @@ const TaskList: React.FC = () => {
     }
   };
 
-  return (
-    <div className={styles.container}>
-      <h2 className={styles.title}>Vazifalar ro‘yxati</h2>
-      <table className={styles.taskTable}>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Vazifa nomi</th>
-            <th>Boshlanish</th>
-            <th>Tugash</th>
-            <th>Status</th>
-            <th>Tavsif</th>
-            <th>Amallar</th>
-          </tr>
-        </thead>
-        <tbody>
-          {tasks.map((task) => (
-            <tr key={task.id} className={styles.tableRow}>
-              {editingTaskId === task.id ? (
-                <td colSpan={7}>
-                  <EditTaskForm
-                    task={task}
-                    onSave={handleTaskUpdated}
-                    onCancel={() => setEditingTaskId(null)}
-                  />
-                </td>
-              ) : (
-                <>
-                  <td>{task.id}</td>
-                  <td className={styles.taskName}>{task.name}</td>
-                  <td className={styles.taskDates}>{task.due_date}</td>
-                  <td className={styles.taskDates}>{task.finish_date}</td>
-                  <td
-                    className={`taskStatus ${
-                      task.status === "new task"
-                        ? "new task"
-                        : task.status === "proceed"
-                        ? "proceed"
-                        : task.status === "completed"
-                        ? "completed"
-                        : ""
-                    }`}
+  const renderTaskCards = (status: string, title: string) => {
+    const filteredTasks = tasks.filter((task) => task.status === status);
+    return (
+      <div className={styles.taskColumn}>
+        <h3 className={styles.columnTitle}>{title}</h3>
+        {filteredTasks.map((task) => (
+          <div key={task.id} className={styles.taskCard}>
+            {editingTaskId === task.id ? (
+              <EditTaskForm
+                task={task}
+                onSave={handleTaskUpdated}
+                onCancel={() => setEditingTaskId(null)}
+              />
+            ) : (
+              <>
+                <h4 className={styles.taskName}>{task.name}</h4>
+                <p className={styles.taskDescription}>{task.description}</p>
+                <p className={styles.taskDates}>
+                  Boshlanish: {task.due_date} | Tugash: {task.finish_date}
+                </p>
+                <div className={styles.buttonGroup}>
+                  <button
+                    className={`${styles.button} ${styles.editButton}`}
+                    onClick={() => setEditingTaskId(task.id)}
                   >
-                    {task.status}
-                  </td>
-                  <td className={styles.taskDescription}>{task.description}</td>
-                  <td className={styles.buttonGroup}>
-                    <button
-                      className={`${styles.button} ${styles.editButton}`}
-                      onClick={() => setEditingTaskId(task.id)}
-                    >
-                      Tahrirlash
-                    </button>
-                    {/* <button
-                      className={`${styles.button} ${styles.toggleButton}`}
-                      onClick={() => handleToggleStatus(task.id)}
-                    >
-                      {task.status === "incomplete"
-                        ? "Bajarilgan deb belgilash"
-                        : "Qayta bajarilmagan"}
-                    </button> */}
-                    <button
-                      className={`${styles.button} ${styles.deleteButton}`}
-                      onClick={() => handleDelete(task.id)}
-                    >
-                      O‘chirish
-                    </button>
-                  </td>
-                </>
-              )}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+                    Tahrirlash
+                  </button>
+                  <button
+                    className={`${styles.button} ${styles.deleteButton}`}
+                    onClick={() => handleDelete(task.id)}
+                  >
+                    O‘chirish
+                  </button>
+                </div>
+              </>
+            )}
+          </div>
+        ))}
+      </div>
+    );
+  };
+
+  return (
+    <div className={styles.taskBoard}>
+      {renderTaskCards("New task", "To Do")}
+      {renderTaskCards("process", "In Progress")}
+      {renderTaskCards("completed", "Done")}
     </div>
   );
 };

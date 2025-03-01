@@ -1,49 +1,73 @@
-/* App.css */
-.App {
-  text-align: center;
-  font-family: Arial, sans-serif;
+/* 📌 Umumiy container */
+.app-container {
+  display: flex;
+  height: 100vh;
 }
 
-.navbar {
-  margin-bottom: 1rem;
-  text-align: center;
-  background-color: #f0f0f0;
-  padding: 1rem 0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+/* 📌 Sidebar menu */
+.sidebar {
+  width: 250px;
+  background: #1e1e2d;
+  color: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
+.sidebar-title {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #bbb;
+  text-transform: uppercase;
+}
+
+/* 📌 Sidebar linklar */
 .navlink {
-  margin: 0 1rem;
   text-decoration: none;
-  color: #333;
-  font-size: 1.1rem;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  transition: 0.3s;
 }
 
 .navlink:hover {
-  background-color: #007bff;
-  color: #fff;
+  background: #34344a;
 }
 
-.navlink.active {
-  background-color: #0056b3;
-  color: #fff;
-  font-weight: bold;
+.active {
+  background: #007bff;
 }
 
-/* Qolgan App elementlari uchun misollar: */
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: white;
+/* 📌 Content qismi */
+.content {
+  flex-grow: 1;
+  padding: 20px;
+  overflow-y: auto;
+  background: #f4f4f4;
 }
 
-.App-link {
-  color: #61dafb;
+/* =============== 📌 RESPONSIVE DESIGN =============== */
+
+/* 📱 Mobil versiya (768px dan kichik) */
+@media (max-width: 768px) {
+  .app-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 10px;
+  }
+
+  .sidebar-title {
+    display: none;
+  }
+
+  .navlink {
+    padding: 10px;
+    font-size: 14px;
+  }
 }

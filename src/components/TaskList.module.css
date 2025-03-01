@@ -1,102 +1,116 @@
-/* src/components/TaskList.module.css */
-.container {
-  padding: 1rem;
-  max-width: 1000px;
-  margin: 0 auto;
+/* Umumiy Task Board */
+.taskBoard {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px;
+  flex-wrap: wrap;
 }
 
-.title {
-  font-size: 1.8rem;
-  font-weight: bold;
+/* Har bir ustun */
+.taskColumn {
+  flex: 1;
+  background: #e4e4e4;
+  padding: 15px;
+  border-radius: 10px;
+  min-width: 280px;
+}
+
+
+/* Ustun sarlavhasi */
+.columnTitle {
   text-align: center;
-  margin-bottom: 1rem;
-}
-
-.taskTable {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.taskTable th,
-.taskTable td {
-  border: 1px solid #ddd;
-  padding: 0.75rem;
-  text-align: center;
-}
-
-.taskTable th {
-  background-color: #f2f2f2;
+  font-size: 18px;
   font-weight: bold;
+  margin-bottom: 10px;
 }
 
-.tableRow:nth-child(even) {
-  background-color: #fbfbfb;
+/* Task Card */
+.taskCard {
+  background: white;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border: 1px solid rgb(179, 179, 179);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
 }
 
+.taskCard:hover {
+  transform: translateY(-3px);
+}
+
+/* Task nomi */
 .taskName {
-  font-size: 1.1rem;
+  font-size: 16px;
   font-weight: bold;
+  margin-bottom: 5px;
 }
 
-.taskDates {
-  font-style: italic;
+/* Tavsif */
+.taskDescription {
+  font-size: 14px;
   color: #555;
 }
 
-.taskDescription {
-  max-width: 200px;
-  word-wrap: break-word;
+/* Sanalar */
+.taskDates {
+  font-size: 12px;
+  color: #777;
 }
 
+/* Tugmalar */
 .buttonGroup {
   display: flex;
-  gap: 0.5rem;
-  justify-content: center;
+  justify-content: space-between;
+  margin-top: 10px;
 }
 
 .button {
-  padding: 0.4rem 0.8rem;
-  border-radius: 4px;
+  padding: 5px 10px;
   border: none;
   cursor: pointer;
-  font-size: 0.9rem;
-  transition: background-color 0.3s ease;
+  border-radius: 5px;
+  font-size: 14px;
 }
 
 .editButton {
-  background-color: #28a745;
-  color: #fff;
-}
-
-.editButton:hover {
-  background-color: #218838;
-}
-
-.toggleButton {
-  background-color: #17a2b8;
-  color: #fff;
-}
-
-.toggleButton:hover {
-  background-color: #138496;
+  background: #4caf50;
+  color: white;
 }
 
 .deleteButton {
-  background-color: #dc3545;
-  color: #fff;
+  background: #f44336;
+  color: white;
 }
 
-.deleteButton:hover {
-  background-color: #c82333;
-}
-.taskStatus.new {
-  color: red;
+/* =============== 📌 RESPONSIVE DESIGN =============== */
+
+/* 📱 Mobil: Tasklar pastma-past joylashadi */
+@media (max-width: 768px) {
+  .taskBoard {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .taskCard {
+    padding: 10px;
+  }
+
+  .button {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
 }
 
-.taskStatus.proceed {
-  color: blue;
-}
+/* 🖥️ Katta ekranlar: Tasklar kengroq chiqadi */
+@media (min-width: 1200px) {
+  .taskBoard {
+    max-width: 1100px;
+    margin: auto;
+  }
 
-.taskStatus.completed {
-  color: green;
+  .taskColumn {
+    flex: 1;
+  }
 }

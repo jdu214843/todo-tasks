@@ -1,4 +1,3 @@
-// src/components/EditTaskForm.tsx
 import React, { useState, FormEvent } from "react";
 import styles from "./EditTaskForm.module.css";
 
@@ -20,75 +19,85 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({
   onSave,
   onCancel,
 }) => {
-  const [name, setName] = useState(task.name);
-  const [description, setDescription] = useState(task.description);
-  const [dueDate, setDueDate] = useState(task.due_date);
-  const [finishDate, setFinishDate] = useState(task.finish_date);
-  const [status, setStatus] = useState(task.status);
+  const [formData, setFormData] = useState({
+    name: task.name,
+    description: task.description,
+    due_date: task.due_date,
+    finish_date: task.finish_date,
+    status: task.status,
+  });
+
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    const updatedTask = {
-      ...task,
-      name,
-      description,
-      due_date: dueDate,
-      finish_date: finishDate,
-      status,
-    };
-    onSave(updatedTask);
+    onSave({ ...task, ...formData });
   };
 
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
-      <div className={styles.field}>
-        <label className={styles.label}>Vazifa nomi:</label>
-        <input
-          type="text"
-          value={name}
-          className={styles.input}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-      </div>
+      {[
+        {
+          label: "Vazifa nomi",
+          type: "text",
+          name: "name",
+          value: formData.name,
+        },
+        {
+          label: "Boshlanish muddati",
+          type: "date",
+          name: "due_date",
+          value: formData.due_date,
+        },
+        {
+          label: "Tugash muddati",
+          type: "date",
+          name: "finish_date",
+          value: formData.finish_date,
+        },
+      ].map(({ label, type, name, value }) => (
+        <div key={name} className={styles.field}>
+          <label className={styles.label}>{label}:</label>
+          <input
+            type={type}
+            name={name}
+            value={value}
+            className={styles.input}
+            onChange={handleChange}
+          />
+        </div>
+      ))}
+
       <div className={styles.field}>
         <label className={styles.label}>Tavsif:</label>
         <textarea
-          value={description}
+          name="description"
+          value={formData.description}
           className={styles.textarea}
-          onChange={(e) => setDescription(e.target.value)}
+          onChange={handleChange}
         />
       </div>
-      <div className={styles.field}>
-        <label className={styles.label}>Boshlanish muddati:</label>
-        <input
-          type="date"
-          value={dueDate}
-          className={styles.input}
-          onChange={(e) => setDueDate(e.target.value)}
-        />
-      </div>
-      <div className={styles.field}>
-        <label className={styles.label}>Tugash muddati:</label>
-        <input
-          type="date"
-          value={finishDate}
-          className={styles.input}
-          onChange={(e) => setFinishDate(e.target.value)}
-        />
-      </div>
+
       <div className={styles.field}>
         <label className={styles.label}>Status:</label>
         <select
-          value={status}
+          name="status"
+          value={formData.status}
           className={styles.select}
-          onChange={(e) => setStatus(e.target.value)}
+          onChange={handleChange}
         >
           <option value="New task">New task</option>
           <option value="process">Process</option>
           <option value="completed">Completed</option>
         </select>
       </div>
+
       <div className={styles.buttonGroup}>
         <button
           type="submit"
