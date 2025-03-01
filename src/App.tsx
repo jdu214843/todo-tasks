@@ -31,7 +31,7 @@ const App: React.FC = () => {
               isActive ? "navlink active" : "navlink"
             }
           >
-            Vazifalar
+            My Tasks
           </NavLink>
 
           <h2 className="sidebar-title">Support</h2>

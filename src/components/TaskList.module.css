@@ -3,7 +3,7 @@
   display: flex;
   justify-content: space-between;
   gap: 20px;
-  padding: 20px;
+
   flex-wrap: wrap;
 }
 
@@ -13,9 +13,8 @@
   background: #e4e4e4;
   padding: 15px;
   border-radius: 10px;
-  min-width: 280px;
+  min-width: 310px;
 }
-
 
 /* Ustun sarlavhasi */
 .columnTitle {

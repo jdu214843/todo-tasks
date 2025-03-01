@@ -9,11 +9,11 @@ interface CreateTaskPageProps {
 const CreateTaskPage: React.FC<CreateTaskPageProps> = () => {
   const handleTaskCreated = (task: any) => {
     // Yangi vazifa qo‘shilganda qilinadigan ishlar, masalan, xabar ko‘rsatish
-    console.log("Yangi vazifa qo‘shildi:", task);
+    alert("Yangi vazifa qo‘shildi:");
   };
 
   return (
-    <div style={{ padding: "1rem" }}>
+    <div style={{ padding: "1rem", textAlign: "center" }}>
       <h2>Create Task</h2>
       <TaskForm onTaskCreated={handleTaskCreated} />
     </div>
