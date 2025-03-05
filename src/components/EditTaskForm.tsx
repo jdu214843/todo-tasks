@@ -41,22 +41,16 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({
   };
 
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
+    <form onSubmit={handleSubmit}>
       {[
         {
-          label: "Vazifa nomi",
+          label: "タスク名前",
           type: "text",
           name: "name",
           value: formData.name,
         },
         {
-          label: "Boshlanish muddati",
-          type: "date",
-          name: "due_date",
-          value: formData.due_date,
-        },
-        {
-          label: "Tugash muddati",
+          label: "締め切りの時間",
           type: "date",
           name: "finish_date",
           value: formData.finish_date,
@@ -75,7 +69,7 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({
       ))}
 
       <div className={styles.field}>
-        <label className={styles.label}>Tavsif:</label>
+        <label className={styles.label}>内容:</label>
         <textarea
           name="description"
           value={formData.description}
@@ -85,7 +79,7 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({
       </div>
 
       <div className={styles.field}>
-        <label className={styles.label}>Status:</label>
+        <label className={styles.label}>状態:</label>
         <select
           name="status"
           value={formData.status}
@@ -103,14 +97,14 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({
           type="submit"
           className={`${styles.button} ${styles.saveButton}`}
         >
-          Saqlash
+          保存する
         </button>
         <button
           type="button"
           onClick={onCancel}
           className={`${styles.button} ${styles.cancelButton}`}
         >
-          Bekor qilish
+          キャンセル
         </button>
       </div>
     </form>

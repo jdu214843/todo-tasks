@@ -59,34 +59,34 @@ const TaskForm: React.FC<TaskFormProps> = ({ onTaskCreated }) => {
           style={{ display: "flex", flexDirection: "column", gap: "16px" }}
         >
           <TextField
-            label="Vazifa nomi"
+            label="タスク名前"
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
             fullWidth
           />
           <TextField
-            label="Tavsif"
+            label="内容"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             fullWidth
           />
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
-              label="Boshlanish muddati"
+              label="始まる"
               value={dueDate}
               onChange={(date) => setDueDate(date)}
               slotProps={{ textField: { fullWidth: true } }}
             />
             <DatePicker
-              label="Tugash muddati"
+              label="締め切り"
               value={finishDate}
               onChange={(date) => setFinishDate(date)}
               slotProps={{ textField: { fullWidth: true } }}
             />
           </LocalizationProvider>
           <FormControl fullWidth>
-            <InputLabel>Status</InputLabel>
+            <InputLabel>状態</InputLabel>
             <Select value={status} onChange={(e) => setStatus(e.target.value)}>
               <MenuItem value="New task">New task</MenuItem>
               <MenuItem value="process">Process</MenuItem>
@@ -94,7 +94,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ onTaskCreated }) => {
             </Select>
           </FormControl>
           <Button type="submit" variant="contained" color="primary" fullWidth>
-            Vazifa qo‘shish
+            タスクを追加する
           </Button>
         </form>
       </CardContent>

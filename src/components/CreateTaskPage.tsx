@@ -14,7 +14,7 @@ const CreateTaskPage: React.FC<CreateTaskPageProps> = () => {
 
   return (
     <div style={{ padding: "1rem", textAlign: "center" }}>
-      <h2>Create Task</h2>
+      <h2>新しいタスクを作成する</h2>
       <TaskForm onTaskCreated={handleTaskCreated} />
     </div>
   );

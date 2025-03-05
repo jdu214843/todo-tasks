@@ -71,7 +71,7 @@ const TaskList: React.FC = () => {
                 className={styles.titleDescribe}
                 onClick={() => setExpandedTask(task)} // ✅ Describe bosilganda modal ochiladi
               >
-                Describe
+                内容
               </p>
               <p className={styles.taskDescription}>
                 {task.description.length > 100
@@ -79,20 +79,23 @@ const TaskList: React.FC = () => {
                   : task.description}
               </p>
               <p className={styles.taskDates}>
-                Boshlanish: {task.due_date} | Tugash: {task.finish_date}
+                <p className={styles.taskDatesWhite}>始まる: {task.due_date}</p>{" "}
+                <p className={styles.taskDatesRed}>
+                  締め切り: {task.finish_date}
+                </p>
               </p>
               <div className={styles.buttonGroup}>
                 <button
                   className={`${styles.button} ${styles.editButton}`}
                   onClick={(e) => handleEditClick(task, e)} // ✅ Edit tugmasi bosilganda modal ochiladi
                 >
-                  Tahrirlash
+                  編集
                 </button>
                 <button
                   className={`${styles.button} ${styles.deleteButton}`}
                   onClick={(e) => handleDelete(task.id, e)}
                 >
-                  O‘chirish
+                  消去
                 </button>
               </div>
             </>
@@ -104,9 +107,9 @@ const TaskList: React.FC = () => {
 
   return (
     <div className={styles.taskBoard}>
-      {renderTaskCards("New task", "To Do")}
-      {renderTaskCards("process", "In Progress")}
-      {renderTaskCards("completed", "Done")}
+      {renderTaskCards("New task", "やることリスト")}
+      {renderTaskCards("process", "進行中")}
+      {renderTaskCards("completed", "終わり")}
 
       {/* Describe Modal */}
       {expandedTask && (
@@ -121,14 +124,14 @@ const TaskList: React.FC = () => {
             <h2>{expandedTask.name}</h2>
             <p>{expandedTask.description}</p>
             <p>
-              Boshlanish: {expandedTask.due_date} | Tugash:{" "}
+              始まる: {expandedTask.due_date} | 締め切り:{" "}
               {expandedTask.finish_date}
             </p>
             <button
               className={styles.closeButton}
               onClick={() => setExpandedTask(null)}
             >
-              Yopish
+              キャンセル
             </button>
           </div>
         </div>
@@ -141,7 +144,6 @@ const TaskList: React.FC = () => {
             className={styles.modalContent}
             onClick={(e) => e.stopPropagation()}
           >
-            <h2>Vazifani Tahrirlash</h2>
             <EditTaskForm
               task={editingTask}
               onSave={handleTaskUpdated}
