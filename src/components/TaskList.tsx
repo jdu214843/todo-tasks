@@ -64,6 +64,7 @@ const TaskList: React.FC = () => {
             ) : (
               <>
                 <h4 className={styles.taskName}>{task.name}</h4>
+                <p className={styles.titleDescribe}>Describe</p>
                 <p className={styles.taskDescription}>{task.description}</p>
                 <p className={styles.taskDates}>
                   Boshlanish: {task.due_date} | Tugash: {task.finish_date}
