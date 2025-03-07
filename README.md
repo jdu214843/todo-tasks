@@ -37,7 +37,7 @@ node server.js
 #### 2 **フロントエンドを起動 | Start Frontend**
 
 ```sh
-cd todo-tasks
+cd todo-tasks これは必要ありません。
 npm start
 ```
 
