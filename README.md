@@ -25,16 +25,7 @@ npm install
 
 ### 3 開発モードでアプリを実行 | Run the app in development mode
 
-#### **フロントエンドを起動 | Start Frontend**
-
-```sh
-cd todo-tasks
-npm start
-```
-
-**開発用サーバー:** [http://localhost:3001](http://localhost:3001)
-
-#### **バックエンドを起動 | Start Backend**
+#### 1 **バックエンドを起動 | Start Backend**
 
 ```sh
 cd backend
@@ -42,6 +33,15 @@ node server.js
 ```
 
 **API サーバー:** [http://localhost:3000](http://localhost:3000)
+
+#### 2 **フロントエンドを起動 | Start Frontend**
+
+```sh
+cd todo-tasks
+npm start
+```
+
+**開発用サーバー:** [http://localhost:3001](http://localhost:3001)
 
 ---
 
