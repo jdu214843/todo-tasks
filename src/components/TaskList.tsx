@@ -90,7 +90,7 @@ const TaskList: React.FC = () => {
               className={styles.titleDescribe}
               onClick={() => setExpandedTask(task)}
             >
-              内容
+              内容を見る
             </p>
             <p className={styles.taskDescription}>
               {task.description.length > 100
