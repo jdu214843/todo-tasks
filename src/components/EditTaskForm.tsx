@@ -19,6 +19,8 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({
   onSave,
   onCancel,
 }) => {
+  const today = new Date().toISOString().split("T")[0]; // Hozirgi sana (YYYY-MM-DD)
+
   const [formData, setFormData] = useState({
     name: task.name,
     description: task.description,
@@ -54,8 +56,9 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({
           type: "date",
           name: "finish_date",
           value: formData.finish_date,
+          min: today, // O'tmish sanalarini tanlashni oldini olish
         },
-      ].map(({ label, type, name, value }) => (
+      ].map(({ label, type, name, value, min }) => (
         <div key={name} className={styles.field}>
           <label className={styles.label}>{label}:</label>
           <input
@@ -64,6 +67,7 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({
             value={value}
             className={styles.input}
             onChange={handleChange}
+            min={min} // Sana uchun cheklovni qo‘shish
           />
         </div>
       ))}
