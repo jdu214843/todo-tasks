@@ -8,8 +8,8 @@ This project is a task management app developed using **React.js** and **Node.js
 ### 1 リポジトリをクローン | Clone the repository
 
 ```sh
-git clone https://github.com/jdu214843/Intarship.git
-cd Intarship
+git clone https://github.com/jdu214843/todo-tasks.git
+cd todo-tasks
 ```
 
 ### 2 依存関係をインストール | Install dependencies
