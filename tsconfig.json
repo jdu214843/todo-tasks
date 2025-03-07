@@ -19,5 +19,5 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src", "server.js"]
+  "include": ["src", "backend/server.js"]
 }

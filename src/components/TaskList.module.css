@@ -19,10 +19,27 @@
 
 /* Ustun nomi */
 .columnTitle {
-  text-align: center;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
-  margin-bottom: 15px;
+  text-align: center;
+  padding: 2px 0px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.newTask {
+  background-color: #ff4d4f;
+  color: white;
+}
+
+.inProgress {
+  background-color: #faad14;
+  color: black;
+}
+
+.completed {
+  background-color: #52c41a;
+  color: white;
 }
 
 /* Task kartochkalari */
@@ -70,7 +87,7 @@
   margin-top: 10px;
 }
 .taskDatesWhite {
-  color: #4caf50;
+  color: #b3b3b3;
 }
 .taskDatesRed {
   color: #d32f2f;
@@ -82,6 +99,7 @@
   color: #3c3b3b;
   cursor: pointer;
   font-weight: bold;
+  display: inline-block;
 }
 
 .titleDescribe:hover {
@@ -107,16 +125,6 @@
 
 .button:hover {
   opacity: 0.8;
-}
-
-.editButton {
-  background: #4caf50;
-  color: white;
-}
-
-.deleteButton {
-  background: #f44336;
-  color: white;
 }
 
 /* 📌 MODAL STILI */
@@ -145,6 +153,23 @@
   transition: all 0.3s ease-in-out;
 }
 
+.modalTaskName {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.modalTaskDescription {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.6;
+  text-align: center;
+  padding: 10px;
+}
+
 .closeButton {
   background: #f44336;
   color: white;
@@ -160,13 +185,33 @@
 .closeButton:hover {
   background: #d32f2f;
 }
+.carouselContainer {
+  position: relative;
+  width: 100%;
+}
 
-/* ✅ FULL RESPONSIVE MEDIA QUERIES */
+.arrowButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 50%;
+  font-size: 18px;
+}
 
-/* 📱 1️⃣ MOBIL (Ekran <= 768px) */
+.arrowButton:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+/* FULL RESPONSIVE MEDIA QUERIES */
+
+/* MOBIL (Ekran <= 768px) */
 @media (max-width: 768px) {
   .taskBoard {
-    flex-direction: column;
     gap: 15px;
   }
 
@@ -189,7 +234,7 @@
   }
 }
 
-/* 💻 2️⃣ PLANSHE T VA O'RTA EKRANLAR (769px - 1024px) */
+/*  PLANSHE T VA O'RTA EKRANLAR (769px - 1024px) */
 @media (max-width: 1024px) {
   .taskBoard {
     flex-wrap: wrap;
@@ -198,7 +243,6 @@
 
   .taskColumn {
     min-width: 320px;
-    max-width: 48%;
   }
 
   .modalContent {
@@ -206,7 +250,7 @@
   }
 }
 
-/* 🖥️ 3️⃣ KATTA MONITOR (Ekran > 1200px) */
+/* KATTA MONITOR (Ekran > 1200px) */
 @media (min-width: 1200px) {
   .taskBoard {
     max-width: 1200px;

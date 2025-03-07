@@ -54,7 +54,9 @@
   .app-container {
     flex-direction: column;
   }
-
+  .content {
+    padding: 0px;
+  }
   .sidebar {
     width: auto;
     flex-direction: row;

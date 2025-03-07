@@ -1,7 +1,7 @@
 // server.js
 const express = require("express");
 const cors = require("cors");
-const db = require("./backend/database.js"); // avval yaratilgan database.js
+const db = require("./database.js"); // avval yaratilgan database.js
 
 const app = express();
 const PORT = process.env.PORT || 3000;

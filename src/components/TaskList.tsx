@@ -1,7 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { getTasks, updateTask, deleteTask } from "../api/tasks";
 import EditTaskForm from "./EditTaskForm";
 import styles from "./TaskList.module.css";
+import { IconButton } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { Carousel } from "antd";
+import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 
 interface Task {
   id: number;
@@ -11,10 +16,19 @@ interface Task {
   finish_date: string;
   status: string;
 }
+
 const TaskList: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [expandedTask, setExpandedTask] = useState<Task | null>(null);
-  const [editingTask, setEditingTask] = useState<Task | null>(null); // ✅ Edit modal uchun state
+  const [editingTask, setEditingTask] = useState<Task | null>(null);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const sliderRef = useRef<any>(null);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const fetchTasks = async () => {
     try {
@@ -32,7 +46,7 @@ const TaskList: React.FC = () => {
   const handleTaskUpdated = async (updatedTask: Task) => {
     try {
       await updateTask(updatedTask.id, updatedTask);
-      setEditingTask(null); // ✅ Modalni yopish
+      setEditingTask(null);
       fetchTasks();
     } catch (error) {
       console.error("Task yangilashda xato:", error);
@@ -50,7 +64,7 @@ const TaskList: React.FC = () => {
   };
 
   const handleEditClick = (task: Task, e: React.MouseEvent) => {
-    e.stopPropagation(); // ✅ Modal holatini buzmaslik uchun
+    e.stopPropagation();
     setEditingTask(task);
   };
 
@@ -60,58 +74,102 @@ const TaskList: React.FC = () => {
 
   const renderTaskCards = (status: string, title: string) => {
     const filteredTasks = tasks.filter((task) => task.status === status);
+    const statusClass =
+      status === "New task"
+        ? styles.newTask
+        : status === "process"
+        ? styles.inProgress
+        : styles.completed;
     return (
       <div className={styles.taskColumn}>
-        <h3 className={styles.columnTitle}>{title}</h3>
+        <h3 className={`${styles.columnTitle} ${statusClass}`}>{title}</h3>
         {filteredTasks.map((task) => (
           <div key={task.id} className={styles.taskCard}>
-            <>
-              <h4 className={styles.taskName}>{task.name}</h4>
-              <p
-                className={styles.titleDescribe}
-                onClick={() => setExpandedTask(task)} // ✅ Describe bosilganda modal ochiladi
-              >
-                内容
-              </p>
-              <p className={styles.taskDescription}>
-                {task.description.length > 100
-                  ? task.description.substring(0, 100) + "..."
-                  : task.description}
-              </p>
-              <p className={styles.taskDates}>
-                <p className={styles.taskDatesWhite}>始まる: {task.due_date}</p>{" "}
+            <h4 className={styles.taskName}>{task.name}</h4>
+            <p
+              className={styles.titleDescribe}
+              onClick={() => setExpandedTask(task)}
+            >
+              内容
+            </p>
+            <p className={styles.taskDescription}>
+              {task.description.length > 100
+                ? task.description.substring(0, 100) + "..."
+                : task.description}
+            </p>
+            {!expandedTask && (
+              <div className={styles.taskDates}>
+                <p className={styles.taskDatesWhite}>始まる: {task.due_date}</p>
                 <p className={styles.taskDatesRed}>
                   締め切り: {task.finish_date}
                 </p>
-              </p>
-              <div className={styles.buttonGroup}>
-                <button
-                  className={`${styles.button} ${styles.editButton}`}
-                  onClick={(e) => handleEditClick(task, e)} // ✅ Edit tugmasi bosilganda modal ochiladi
-                >
-                  編集
-                </button>
-                <button
-                  className={`${styles.button} ${styles.deleteButton}`}
-                  onClick={(e) => handleDelete(task.id, e)}
-                >
-                  消去
-                </button>
               </div>
-            </>
+            )}
+            <div className={styles.buttonGroup}>
+              <IconButton
+                sx={{ color: "blue" }}
+                onClick={(e) => handleEditClick(task, e)}
+              >
+                <EditIcon />
+              </IconButton>
+              <IconButton
+                sx={{ color: "red" }}
+                onClick={(e) => handleDelete(task.id, e)}
+              >
+                <DeleteIcon />
+              </IconButton>
+            </div>
           </div>
         ))}
       </div>
     );
   };
+  const statusLabels: { [key: string]: string } = {
+    "New task": "やることリスト",
+    process: "進行中",
+    completed: "終わり",
+  };
 
   return (
     <div className={styles.taskBoard}>
-      {renderTaskCards("New task", "やることリスト")}
-      {renderTaskCards("process", "進行中")}
-      {renderTaskCards("completed", "終わり")}
-
-      {/* Describe Modal */}
+      {isMobile ? (
+        <div className={styles.carouselContainer}>
+          <Carousel
+            autoplay
+            dots={true}
+            ref={sliderRef}
+            autoplaySpeed={5000}
+            arrows={false}
+            effect="scrollx"
+          >
+            {["New task", "process", "completed"].map((status, index) => (
+              <div key={index}>
+                {renderTaskCards(status, statusLabels[status])}
+              </div>
+            ))}
+          </Carousel>
+          <button
+            className={styles.arrowButton}
+            style={{ left: "10px" }}
+            onClick={() => sliderRef.current?.prev()}
+          >
+            <LeftOutlined />
+          </button>
+          <button
+            className={styles.arrowButton}
+            style={{ right: "10px" }}
+            onClick={() => sliderRef.current?.next()}
+          >
+            <RightOutlined />
+          </button>
+        </div>
+      ) : (
+        <>
+          {renderTaskCards("New task", statusLabels["New task"])}
+          {renderTaskCards("process", statusLabels["process"])}
+          {renderTaskCards("completed", statusLabels["completed"])}
+        </>
+      )}
       {expandedTask && (
         <div
           className={styles.modalOverlay}
@@ -121,11 +179,9 @@ const TaskList: React.FC = () => {
             className={styles.modalContent}
             onClick={(e) => e.stopPropagation()}
           >
-            <h2>{expandedTask.name}</h2>
-            <p>{expandedTask.description}</p>
-            <p>
-              始まる: {expandedTask.due_date} | 締め切り:{" "}
-              {expandedTask.finish_date}
+            <h2 className={styles.modalTaskName}>{expandedTask.name}</h2>
+            <p className={styles.modalTaskDescription}>
+              {expandedTask.description}
             </p>
             <button
               className={styles.closeButton}
@@ -137,7 +193,6 @@ const TaskList: React.FC = () => {
         </div>
       )}
 
-      {/* Edit Modal */}
       {editingTask && (
         <div className={styles.modalOverlay} onClick={closeEditModal}>
           <div
@@ -147,7 +202,7 @@ const TaskList: React.FC = () => {
             <EditTaskForm
               task={editingTask}
               onSave={handleTaskUpdated}
-              onCancel={closeEditModal} // ✅ Bekor qilish tugmasi modalni yopadi
+              onCancel={closeEditModal}
             />
           </div>
         </div>

@@ -35,12 +35,6 @@ const App: React.FC = () => {
           </NavLink>
 
           <h2 className="sidebar-title">Support</h2>
-          <NavLink to="/help" className="navlink">
-            Help
-          </NavLink>
-          <NavLink to="/logout" className="navlink">
-            Log Out
-          </NavLink>
         </nav>
 
         {/* 📌 Main content */}
