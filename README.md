@@ -11,15 +11,19 @@ This project is a task management app developed using **React.js** and **Node.js
 git clone https://github.com/jdu214843/todo-tasks.git
 cd todo-tasks
 ```
+エラーがある場合は、クローン作成を試してください。
+
 
 ### 2 依存関係をインストール | Install dependencies
 
 ```sh
 # フロントエンド
+npm uninstall
 npm install
 
 # バックエンド
 cd ../backend
+npm uninstall
 npm install
 ```
 
@@ -37,7 +41,7 @@ node server.js
 #### 2 **フロントエンドを起動 | Start Frontend**
 
 ```sh
-cd todo-tasks これは必要ありません。
+cd todo-tasks
 npm start
 ```
 
