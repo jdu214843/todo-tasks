@@ -18,12 +18,12 @@ cd todo-tasks
 
 ```sh
 # フロントエンド
-npm uninstall
+rm -rf node_modules
 npm install
 
 # バックエンド
 cd ../backend
-npm uninstall
+rm -rf node_modules
 npm install
 ```
 
